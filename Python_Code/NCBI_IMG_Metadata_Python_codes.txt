@@ -1,0 +1,28 @@
+When and how to run:
+
+Convert NCBI full text summary file into table:
+
+python parse_NCBI_metadata.py NCBI_text_summary_file.txt output_file_name.txt
+
+
+
+Make Gene Hit Annotation File
+
+Download the file HMMER zip file from each of the gene hit programs: Search with HMMs of Phylogenetic Marker families, Search with HMMs of MicroTrait Bioelement families, and Search with dbCAN2 HMMs of CAZy families
+
+Concatenate all of the gene hit files together in each of the downloaded files (you will likely need to extract the files first)
+If in linux
+cat *hitout.txt > combined_phylomarker.txt
+If in windows
+copy /b *hitout.txt combined_phylomarker.txt
+
+Make sure that you concatenate all the files from each of the HMMER zip files into one gene hit
+copy /b combined_phylomarker.txt+combined_bioelement.txt+combined_dbCAN2.txt > combined_gene_hits.txt
+
+Generate the gene hit file to be used for download and filter functions
+python gene_hits_conversion_with_file_type_change.py combined_gene_hits.txt output_gene_hits.txt
+
+To merge all the gene hits together.
+
+python merge_gene_hit_file gene_table/*.csv merged_genes_table.tsv
+

@@ -1,0 +1,33 @@
+Clone Library protocol
+
+Clean up the fasta file and generate the count table. The count table will not be accurate, it will just generate a “1” count for all of the sequences available but this will at least give an idea of the taxonomy presence. To clean up the fasta file and generate a corresponding count table you will use the code:
+
+python generate_fasta_count_table.py input.fasta list_of_samples.txt cleaned_input.fasta new_samples_count_table.csv
+
+The files needed for this code are:
+input.fasta = the fasta file extracted from batch entrez
+list_of_samples.txt = a list of all the samples that correspond to the fasta sequences
+The files generated are:
+cleaned_input.fasta
+new_samples_count_table.tsv
+
+
+Although if samples are being added to the Clone library dataset they will likely need to be trimmed to one of the different primer sets V1V2, V4, V6-V8. To perform trimming and merging follow these steps:
+
+Convert to fastq using the python code:
+
+python make_false_fastq_file.py cleaned_input.fasta cleaned_input.fastq
+
+
+To merge the data follow the tutorial steps in the filter and add data narrative. Briefly, merge using the python codes. 
+
+You will need the files provided in the table on the database:
+count_table.csv for the specific amplified region of interest
+fasta_file.fasta for the specific amplified region of interest
+
+python Merge_new_count_tables.py count_table.csv new_samples_count_table.csv merged_count_tables.csv
+python merge_new_fasta.py fasta_file.csv double_trimmed_output.fasta merged_fasta.fasta
+
+This will generate the two files needed to use in the database
+merged_count_tables.csv
+merged_fasta.fasta
